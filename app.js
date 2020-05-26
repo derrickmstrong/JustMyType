@@ -7,12 +7,12 @@ $(function () {
     'nee ene ate ite tent tiet ent ine ene ete ene ate',
   ];
 
-  let count = 0;
+  let arrIndex = 0;
 
-  $('#sentence').html(sentences[count]);
+  $('#sentence').html(sentences[arrIndex]);
 
-  // FIXME: The count should increment once you get to the end of the sentence therefore there should be a check that will conditionally loop this forEach
-  // String(sentences[count])
+  // FIXME: The arrIndex should increment once you get to the end of the sentence therefore there should be a check that will conditionally loop this forEach
+  // String(sentences[arrIndex])
   //   .split('')
   //   .forEach((el) =>
   //     $('#sentence').append(function () {
@@ -22,23 +22,31 @@ $(function () {
   //     })
   //   );
 
-  let charCount = 0;
+  let charIndex = 0;
   let nudge = 15;
 
   $(document).keypress(function (e) {
-    if (count === 5) {
+    // Compare keypress and sentences; if same display check if not display x
+    if (e.key === sentences[arrIndex].charAt(charIndex)) {
+      $('#feedback').html('<i class="glyphicon glyphicon-ok"></i>');
+    } else {
+      $('#feedback').html('<i class="glyphicon glyphicon-remove"></i>');
+    }
+    
+    // Check to see if all the sentences have been completed, if so stop everything with return;
+    if (arrIndex === 5) {
       return;
     }
-    charCount++;
-    console.log(charCount);
+    charIndex++;
+    console.log(charIndex);
     // End of Sentence
-    if (charCount === sentences[count].length + 1) {
-      console.log('Sentences Count: ', count);
-      count++;
+    if (charIndex === sentences[arrIndex].length + 1) {
+      console.log('Sentences arrIndex: ', arrIndex);
+      arrIndex++;
       nudge = 15;
-      charCount = 0;
-      $('#sentence').html(sentences[count]);
-    }  
+      charIndex = 0;
+      $('#sentence').html(sentences[arrIndex]);
+    }
     // FIXME: The if condition only checks if a key has been pressed but its not reacting to the specific keys of the sentence above yet
     if (e.which == e.keyCode) {
       console.log(e.key);
@@ -55,13 +63,9 @@ $(function () {
       //   }
       // });
       // TODO: Show visual log of correct vs incorrect has been set up but if statements below are incomplete
-      // $('#feedback').append(function () {
-      //   if ('end of sentence') {
-      //   } else if ('correct') {
-      //   } else if ('incorrect') {
-      //   }
-      // });
+      console.log(sentences[arrIndex].charAt(charIndex - 1));
     }
+      
   });
   // TODO: Create End of Typing Test logic
 
