@@ -24,28 +24,45 @@ $(function () {
 
   let charIndex = 0;
   let nudge = 15;
+  let numberOfMistakes = 0;
+  let minutes;
+  console.log(charIndex);
+  console.log(sentences[arrIndex].charAt(0));
+
+  // Set initial Target Letter
+  if (charIndex == 0) {
+    $('#target-letter').html(sentences[arrIndex].charAt(0));
+  }
 
   $(document).keypress(function (e) {
     // Compare keypress and sentences; if same display check if not display x
     if (e.key === sentences[arrIndex].charAt(charIndex)) {
-      $('#feedback').html('<i class="glyphicon glyphicon-ok"></i>');
+      $('#feedback').append('<i class="glyphicon glyphicon-ok"></i>');
     } else {
-      $('#feedback').html('<i class="glyphicon glyphicon-remove"></i>');
+      $('#feedback').append('<i class="glyphicon glyphicon-remove"></i>');
+      numberOfMistakes++;
     }
-    
+
+    // Display Target Letter
+    $('#target-letter').html(sentences[arrIndex].charAt(0));
+
+    // Calculate Score
+    let score = 54 / minutes - 2 * numberOfMistakes;
+
     // Check to see if all the sentences have been completed, if so stop everything with return;
     if (arrIndex === 5) {
       return;
     }
     charIndex++;
     console.log(charIndex);
+
     // End of Sentence
     if (charIndex === sentences[arrIndex].length) {
       console.log('Sentences arrIndex: ', arrIndex);
       arrIndex++;
       nudge = 15;
       charIndex = 0;
-      $('#feedback').empty()
+      $('#feedback').empty();
       $('#sentence').html(sentences[arrIndex]);
     }
     // FIXME: The if condition only checks if a key has been pressed but its not reacting to the specific keys of the sentence above yet
@@ -64,9 +81,8 @@ $(function () {
       //   }
       // });
       // TODO: Show visual log of correct vs incorrect has been set up but if statements below are incomplete
-      console.log(sentences[arrIndex].charAt(charIndex - 1));
+      console.log(sentences[arrIndex].charAt(charIndex));
     }
-      
   });
   // TODO: Create End of Typing Test logic
 
