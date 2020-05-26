@@ -40,11 +40,12 @@ $(function () {
     charIndex++;
     console.log(charIndex);
     // End of Sentence
-    if (charIndex === sentences[arrIndex].length + 1) {
+    if (charIndex === sentences[arrIndex].length) {
       console.log('Sentences arrIndex: ', arrIndex);
       arrIndex++;
       nudge = 15;
       charIndex = 0;
+      $('#feedback').empty()
       $('#sentence').html(sentences[arrIndex]);
     }
     // FIXME: The if condition only checks if a key has been pressed but its not reacting to the specific keys of the sentence above yet
