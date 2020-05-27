@@ -8,26 +8,13 @@ $(function () {
   ];
 
   let arrIndex = 0;
-
-  $('#sentence').html(sentences[arrIndex]);
-
-  // FIXME: The arrIndex should increment once you get to the end of the sentence therefore there should be a check that will conditionally loop this forEach
-  // String(sentences[arrIndex])
-  //   .split('')
-  //   .forEach((el) =>
-  //     $('#sentence').append(function () {
-  //       const characterSpan = document.createElement('span');
-  //       characterSpan.innerText = el;
-  //       return characterSpan;
-  //     })
-  //   );
-
   let charIndex = 0;
   let nudge = 15;
   let numberOfMistakes = 0;
   let minutes;
-  console.log(charIndex);
-  console.log(sentences[arrIndex].charAt(0));
+
+  // Display Sentences
+  $('#sentence').html(sentences[arrIndex]);
 
   // Set initial Target Letter
   if (charIndex == 0) {
@@ -42,12 +29,9 @@ $(function () {
       $('#feedback').append('<i class="glyphicon glyphicon-remove"></i>');
       numberOfMistakes++;
     }
-
+    console.log(numberOfMistakes);
     // Display Target Letter
-    $('#target-letter').html(sentences[arrIndex].charAt(0));
-
-    // Calculate Score
-    let score = 54 / minutes - 2 * numberOfMistakes;
+    $('#target-letter').html(sentences[arrIndex].charAt(charIndex + 1));
 
     // Check to see if all the sentences have been completed, if so stop everything with return;
     if (arrIndex === 5) {
@@ -56,7 +40,7 @@ $(function () {
     charIndex++;
     console.log(charIndex);
 
-    // End of Sentence
+    // Check for end of Sentence
     if (charIndex === sentences[arrIndex].length) {
       console.log('Sentences arrIndex: ', arrIndex);
       arrIndex++;
@@ -65,7 +49,8 @@ $(function () {
       $('#feedback').empty();
       $('#sentence').html(sentences[arrIndex]);
     }
-    // FIXME: The if condition only checks if a key has been pressed but its not reacting to the specific keys of the sentence above yet
+
+    // Check if keypress equal keyboard key
     if (e.which == e.keyCode) {
       console.log(e.key);
       $('#' + e.keyCode).toggleClass('highlight-key');
@@ -74,20 +59,15 @@ $(function () {
       });
       // FIXME: Tht #yellow-block moves but its size and spacing is off
       nudge += 17;
-      // TODO: Show the next expected letter in the sentence above else nothing
-      // $('#target-letter').append(function () {
-      //   if (condition) {
-      //   } else {
-      //   }
-      // });
-      // TODO: Show visual log of correct vs incorrect has been set up but if statements below are incomplete
-      console.log(sentences[arrIndex].charAt(charIndex));
     }
+
+    // Calculate Score
+    let score = 54 / minutes - 2 * numberOfMistakes;
   });
-  // TODO: Create End of Typing Test logic
 
   // TODO: Create Play Again logic
 
+  // Toggle Keyboards
   $(document).keydown(function (e) {
     if (e.which == 16) {
       $('#keyboard-upper-container').toggle();
