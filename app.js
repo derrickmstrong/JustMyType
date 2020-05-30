@@ -4,7 +4,9 @@ $(function () {
   let sentenceIndex = 0;
   let charIndex = 0;
   let move = 15;
-  let numberOfMistakes = 0;
+  let wordCount = 10;
+  let incorrect = 0;
+  let correct = 0;
   let startTime = null;
   let endTime = null;
 
@@ -17,48 +19,52 @@ $(function () {
   }
 
   $(document).keypress(function (e) {
-    // Initialize startTime
-    if (startTime === null) {
-      startTime = Date.now();
+    // Compare keypress and sentences; if same display check if not display x
+    if (sentenceIndex < 5) {
+      if (e.key === sentences[sentenceIndex].charAt(charIndex)) {
+        $('#feedback').append('<i class="glyphicon glyphicon-ok"></i>');
+        correct++;
+      } else {
+        $('#feedback').append('💩');
+        incorrect++;
+      }
+      // console.log('Correct;', correct);
+      // console.log('Incorrect;', incorrect);
     }
 
-    // Check to see if all the sentences have been completed, if so stop everything with return;
+    // Initialize startTime
+    if (startTime === null) {
+      startTime = new Date();
+    }
+
+    // Check to see if all the sentences have been completed, if so, complete end of game steps and stop further sentence checks with return;
     if (sentenceIndex === 5) {
       if (endTime === null) {
-        endTime = Date.now();
+        endTime = new Date();
       }
-      console.log(startTime);
-      console.log(endTime);
-      console.log('NUM OF MISTAKES:', numberOfMistakes);
-      let minutes = endTime - startTime;
-      minutes /= 60000;
-      console.log('MINUTES:', minutes);
-      let score = Math.round((54 / minutes) - (2 * numberOfMistakes));
-      console.log('SCORE:', Math.round(score));
-      console.log('STOP TIMER');
-      $('#sentence').html('Your Score is ' + score);
+
+      // Remove cursor
+      $('#yellow-block').remove();
+
+      // Evaluate score
+      const seconds = Math.floor(
+        (endTime.getTime() - startTime.getTime()) / 1000
+      );
+      const accuracy = Math.floor((correct / (incorrect + correct)) * 100);
+      const wpm = Math.floor(wordCount / (seconds / 60));
+      const score = Math.floor(correct / (seconds / 60));
+
+      $('#sentence').html(
+        `You scored ${score} points (from your correct characters per minute)! You typed ${wordCount} words in ${seconds} seconds at ${wpm} wpm and your accuracy was ${accuracy}%.`
+      );
 
       return;
     }
-    // Compare keypress and sentences; if same display check if not display x
-    if (e.key === sentences[sentenceIndex].charAt(charIndex)) {
-      console.log('CORRECT', sentences[sentenceIndex].charAt(charIndex));
-      $('#feedback').append('<i class="glyphicon glyphicon-ok"></i>');
-    } else {
-      $('#feedback').append('<i class="glyphicon glyphicon-remove"></i>');
-      numberOfMistakes++;
-    }
-    console.log(numberOfMistakes);
 
     // Display Target Letter
     $('#target-letter').html(sentences[sentenceIndex].charAt(charIndex + 1));
 
     charIndex++;
-
-    // Check to see if all the sentences have been completed, if so stop everything with return;
-    // if (sentenceIndex === 5 && charIndex === sentences[sentenceIndex].length) {
-    //   console.log('STOP TIMER')
-    // }
 
     // Check for end of Sentence
     if (charIndex === sentences[sentenceIndex].length) {
@@ -81,27 +87,10 @@ $(function () {
     $('#yellow-block').css({
       left: move,
     });
-    // FIXME: Tht #yellow-block moves but its size and spacing is off
     move += 17.5;
 
     // TODO: Create Play Again logic
-    /*
-Yeah, that's pretty close to what I did. There's a method called Date.now() that captures the current time in milliseconds since like 1970 or something like that. So what I did was when the game starts, I set a variable equal to Date.now(). Then when the game ends, I set the same variable equal to Date.now() minus the original variable. I'll paste a little snippet of my code to hopefully better illustrate what I mean
-9:40
-So at game start I just say startTime = Date.now()  then once the game ends I say timeElapsed = Date.now() - startTime; that will give you the total time it took to go through the game in milliseconds, so to turn that into minutes you just need to divide by 60000
-New
-9:42
-As for making it stop on the last keypress, I added another entry to the sentences array that's just the string " " so that I can use an if statement to check if my array is on the 5th index and stop the game when it hits that
-9:43
-Also, just a friendly heads up, Date.now is capitalized exactly as I'm typing it, it's not camelcase like bascially everything else we use
-  */
-
-    // Calculate Score
-    // console.log(startTime);
-    // console.log(endTime);
-
-    // let minutes = (endTime - startTime) / 60000;
-    // let score = 54 / minutes - 2 * numberOfMistakes;
+    
   });
 
   // Toggle Keyboards
