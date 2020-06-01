@@ -111,7 +111,7 @@ $(function () {
       return;
     } else {
       // Set audio volume
-      audioVolume(0.1);
+      // audioVolume(0.1);
       $('#typewriter').trigger('play');
       $('#andre3000').trigger('play');
     }
