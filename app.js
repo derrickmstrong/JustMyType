@@ -2,7 +2,7 @@ $(function () {
   let barsIndex = 0;
   let charIndex = 0;
   let move = 35;
-  let wordCount = 54;
+  let wordCount = 56;
   let incorrect = 0;
   let correct = 0;
   let startTime = null;
@@ -13,7 +13,7 @@ $(function () {
     `Sayin that I chose this cutie pie with whom I wanna be`,
     `And I apologize if this message gets you down`,
     `Then I CCed every girl that Id see-see round town`,
-    `And hate to see yall frown, but Id rather see her smilin`,
+    `And hate to see yall frown, but Id rather see her smilin - Andre3000`,
   ];
 
   // Special (lower) keyboard styles
