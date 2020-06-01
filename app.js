@@ -1,125 +1,187 @@
 $(function () {
-  let sentenceIndex = 0;
+  let barsIndex = 0;
   let charIndex = 0;
-  let move = 50;
-  let wordCount = 57;
+  let move = 35;
+  let wordCount = 54;
   let incorrect = 0;
   let correct = 0;
   let startTime = null;
   let endTime = null;
 
-  let sentences = [
+  let bars = [
     `So I typed a text to a girl I used to see`,
-    `Sayin’ that I chose this cutie pie with whom I wanna be`,
+    `Sayin that I chose this cutie pie with whom I wanna be`,
     `And I apologize if this message gets you down`,
-    `Then I CC’ed every girl that I’d see-see ’round town`,
-    `And hate to see y’all frown, but I’d rather see her smilin' - Andre 3000`,
+    `Then I CCed every girl that Id see-see round town`,
+    `And hate to see yall frown, but Id rather see her smilin`,
   ];
 
-  // Styles
+  // Special (lower) keyboard styles
   $('#97').css({
-    backgroundColor: 'purple',
+    backgroundColor: 'rgba(30, 30, 139, 0.85)',
     color: 'white',
   });
   $('#110').css({
-    backgroundColor: 'purple',
+    backgroundColor: 'rgba(30, 30, 139, 0.85)',
     color: 'white',
   });
   $('#100').css({
-    backgroundColor: 'purple',
+    backgroundColor: 'rgba(30, 30, 139, 0.85)',
     color: 'white',
   });
   $('#114').css({
-    backgroundColor: 'purple',
+    backgroundColor: 'rgba(30, 30, 139, 0.85)',
     color: 'white',
   });
   $('#101').css({
-    backgroundColor: 'purple',
+    backgroundColor: 'rgba(30, 30, 139, 0.85)',
     color: 'white',
   });
   $('#51').css({
-    backgroundColor: 'purple',
+    backgroundColor: 'rgba(67, 241, 44, 0.932)',
     color: 'white',
   });
   $('#48').css({
-    backgroundColor: 'purple',
+    backgroundColor: 'rgba(67, 241, 44, 0.932)',
     color: 'white',
   });
+  $('#39').css({
+    color: 'white',
+    backgroundImage: 'url(./images/emoji_andre3000v3.png)',
+    backgroundSize: 'cover',
+  });
 
+  // Special (upper) keyboard styles
   $('#79').css({
-    backgroundColor: 'purple',
+    backgroundColor: 'rgba(30, 30, 139, 0.85)',
     color: 'white',
   });
   $('#85').css({
-    backgroundColor: 'purple',
+    backgroundColor: 'rgba(67, 241, 44, 0.932)',
     color: 'white',
   });
   $('#84').css({
-    backgroundColor: 'purple',
+    backgroundColor: 'rgba(30, 30, 139, 0.85)',
     color: 'white',
   });
   $('#75').css({
-    backgroundColor: 'purple',
+    backgroundColor: 'rgba(67, 241, 44, 0.932)',
     color: 'white',
   });
   $('#65').css({
-    backgroundColor: 'purple',
+    backgroundColor: 'rgba(30, 30, 139, 0.85)',
     color: 'white',
   });
   $('#83').css({
-    backgroundColor: 'purple',
+    backgroundColor: 'rgba(30, 30, 139, 0.85)',
     color: 'white',
   });
   $('#71').css({
-    backgroundColor: 'purple',
+    backgroundColor: 'rgba(67, 241, 44, 0.932)',
     color: 'white',
   });
 
+  // Start Message styles
+  $('#start-test').css({
+    position: 'relative',
+    top: '-30em',
+    zIndex: '10',
+  });
 
-
-  // Display Sentences
-  $('#sentence').html(sentences[sentenceIndex]);
+  // Display bars
+  $('#bars').html(bars[barsIndex]);
 
   // Set initial Target Letter
-  if (charIndex == 0) {
-    $('#target-letter').html(sentences[sentenceIndex].charAt(0));
-  }
+  charIndex === 0 ? $('#target-letter').html(bars[barsIndex].charAt(0)) : null;
 
-// ON KEYPRESS
+  // Set initial feedback
+  barsIndex < 5 ? $('#feedback').html('<span class="spacer">.</span>') : null;
+
+  /************* 
+  ON KEYPRESS
+  *************/
   $(document).keypress(function (e) {
-    // Start audio
-    let andre3000 = document.querySelector('#andre3000')
-    andre3000.play();
+    // Remove Start message
+    $('#start-test').remove();
 
-    // Compare keypress and sentences; if same display check if not display x
-    if (sentenceIndex < 5) {
-      if (e.key === sentences[sentenceIndex].charAt(charIndex)) {
+    // Start audio
+    if (barsIndex === 5) {
+      return;
+    } else {
+      $('#typewriter').trigger('play');
+      $('#andre3000').trigger('play');
+    }
+
+    // Compare keypress and bars; if same display 🎤 if not display 👎🏾
+    if (barsIndex < 5) {
+      if (e.key === bars[barsIndex].charAt(charIndex)) {
         $('#feedback').append('🎤');
         correct++;
       } else {
-        $('#feedback').append('😡');
+        $('#feedback').append('👎🏾');
         incorrect++;
       }
     }
-    
-    // Initialize startTime
-    if (startTime === null) {
-      startTime = new Date();
-    }
-    
-    // Check to see if all the sentences have been completed, if so, complete end of game steps and stop further sentence checks with return;
-    if (sentenceIndex === 5) {
-      // End audio
-      $('#andre3000').trigger('pause');
-      // $('#andre3000').currentTime = 0;
 
-      // Remove cursor
-      $('#yellow-block').remove();
+    // Initialize startTime
+    startTime === null ? (startTime = new Date()) : null;
+
+    // Check to see if all the bars have been completed, if so, complete end of game steps and stop further sentence checks with return;
+    barsIndex === 5 ? '' : null;
+
+    // Display Target Letter
+    bars[barsIndex].charAt(charIndex + 1) == ' '
+      ? $('#target-letter').html(' ')
+      : $('#target-letter').html(bars[barsIndex].charAt(charIndex + 1));
+
+    charIndex++;
+    // Check for end of sentence
+    if (charIndex === bars[barsIndex].length) {
+      barsIndex++;
+      move = 17.5;
+      charIndex = 0;
+      // Add "spacer" to deal with page jump at feedback
+      $('#feedback').html('<span class="spacer">.</span>');
+      $('#bars').html(bars[barsIndex]);
+    }
+
+    // End of typing test | Remove all unnecessary items + Display end of test message
+    if (barsIndex === 5) {
+      // Stop/Remove audio
+      $('#typewriter').remove();
+      $('#andre3000').remove();
+
+      // Remove block
+      $('#position-block').remove();
+
+      // Remove feedback
+      $('#feedback').remove();
+
+      // Animate try again
+      $('#target-letter')
+        .css({
+          opacity: '0',
+          cursor: 'pointer',
+        })
+        .delay(3000)
+        .fadeIn()
+        .animate({
+          fontSize: '15px',
+          margin: '1.25em 0',
+          padding: '30px 0',
+          opacity: '1',
+          top: '1em',
+        })
+        .html(`<input class='btn try-again' type='button' value='Try Again'>`)
+        .click(function () {
+          location.reload();
+        });
+
+      // Remove keyboards
+      $('#keyboard-container').remove();
 
       // Check for endTime
-      if (endTime === null) {
-        endTime = new Date();
-      }
+      endTime === null ? (endTime = new Date()) : null;
 
       // Evaluate score
       const seconds = Math.floor(
@@ -131,47 +193,50 @@ $(function () {
       const score = Math.floor(correct / (seconds / 60));
 
       // Display Test results
-      $('#sentence').html(
-        `You scored ${score} points! You typed ${wordCount} words in ${seconds} seconds at ${wpm} wpm and your accuracy was ${accuracy}%.`
-      );
+      $('#bars')
+        .css({
+          textAlign: 'center',
+        })
+        .html(
+          `Source.code gave you ${
+            score > 175
+              ? '🎤🎤🎤🎤🎤 mics'
+              : score < 175 && score >= 150
+              ? '🎤🎤🎤🎤 mics'
+              : score < 150 && score >= 125
+              ? '🎤🎤🎤 mics'
+              : score < 125 && score >= 124
+              ? '🎤🎤 mics'
+              : '🎤 mic'
+          } for your performance!
+         <br><br>
+        You typed ${wordCount} words in ${seconds} seconds at ${wpm} wpm (w/${accuracy}% accuracy)`
+        );
 
       return;
-    }
-
-    // Display Target Letter
-    if (sentences[sentenceIndex].charAt(charIndex + 1) == ' ') {
-      $('#target-letter').html('space');
-    } else {
-      $('#target-letter').html(sentences[sentenceIndex].charAt(charIndex + 1));
-    }
-
-    charIndex++;
-
-    // Check for end of sentence
-    if (charIndex === sentences[sentenceIndex].length) {
-      sentenceIndex++;
-      move = 17.5;
-      charIndex = 0;
-      $('#feedback').empty();
-      $('#sentence').html(sentences[sentenceIndex]);
+    } else if (charIndex == 0) {
+      $('#target-letter').html(bars[barsIndex].charAt(0));
     }
 
     // Check if keypress equal keyboard key
     if (e.which == e.keyCode) {
-      console.log(e.key);
       $('#' + e.keyCode).toggleClass('highlight-key');
+      $('#lower-left-speaker').toggleClass('speaker');
+      $('#lower-right-speaker').toggleClass('speaker');
+      $('#upper-left-speaker').toggleClass('speaker');
+      $('#upper-right-speaker').toggleClass('speaker');
     }
 
-    // Move chars along page
-    $('#yellow-block').css({
+    // Move block along page
+    $('#position-block').css({
       left: move,
     });
     move += 17.5;
-
-    // TODO: Create Play Again logic
   });
 
-  // ON KEYDOWN
+  /************* 
+  ON KEYDOWN
+  *************/
   // Toggle Keyboards
   $(document).keydown(function (e) {
     if (e.which == 16) {
@@ -179,8 +244,11 @@ $(function () {
       $('#keyboard-lower-container').toggle();
     }
   });
-  
-  // ON KEYUP
+
+  /************* 
+  ON KEYUP
+  *************/
+  // Toggle Keyboards
   $(document).keyup(function (e) {
     if (e.which == 16) {
       $('#keyboard-upper-container').toggle();
@@ -188,6 +256,10 @@ $(function () {
     }
     if (e.which == e.keyCode) {
       $('.key').removeClass('highlight-key');
+      $('#lower-left-speaker').removeClass('speaker');
+      $('#lower-right-speaker').removeClass('speaker');
+      $('#upper-left-speaker').removeClass('speaker');
+      $('#upper-right-speaker').removeClass('speaker');
     }
   });
 });

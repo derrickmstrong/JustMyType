@@ -1,20 +1,20 @@
 * {
   margin: 0;
-  padding: 0;	
+  padding: 0;
 }
 
 #prompt-container {
   font-family: Courier New, Courier, monospace;
-  font-size: 21px;
+  font-size: 24px;
   letter-spacing: 3px;
 }
 
-#yellow-block {
+#position-block {
   position: absolute;
-  margin-top: 10px;
+  margin-top: 4px;
   width: 15px;
-  height: 15px;
-  background-color: yellow;
+  height: 25px;
+  background-color: rgba(67, 241, 44, 0.932);
 }
 
 .keyboard-container {
@@ -22,7 +22,14 @@
 }
 
 #target-letter {
-  font-size: 38px;  
+  font-size: 38px;
+  background-image: url(./images/monitor.png);
+  background-repeat: no-repeat;
+  height: 125px;
+  background-position-x: center;
+  margin: 0.5em 0;
+  padding: 20px 0;
+  color: white;
 }
 
 .keys-row {
@@ -32,27 +39,59 @@
 
 #feedback {
   font-size: 20px;
+  cursor: ;
 }
 .glyphicon-ok {
-  content:"\e013";
-  color: #1DA237
+  content: '\e013';
+  color: #1da237;
 }
 
 .glyphicon-remove {
-  content:"\e014";
-  color : #CD2626
+  content: '\e014';
+  color: #cd2626;
+}
+
+body::after {
+  content: '';
+  background-image: url(./images/bg_mic.svg);
+  background-size: cover;
+  opacity: 0.95;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: fixed;
+  z-index: -1;
 }
 
 #keyboard-upper-container {
   display: none;
 }
 
-.highlight-key {
-  background-color: rgba(128, 0, 128, 0.65);
-  text-decoration: underline;
-  font-size: 2.5em;
+#bars {
+  color: white;
 }
 
-.correct {
-  font-size: 4em;
+.highlight-key {
+  background-color: rgba(30, 30, 139, 0.85);
+  text-decoration: underline;
+  color: white;
+}
+
+.speaker {
+  background-color: rgba(30, 30, 139, 0.85);
+}
+
+.try-again {
+  color: white;
+  background-color: rgba(67, 241, 44, 0.932);
+}
+
+.key {
+  border: 1px solid black;
+}
+
+.spacer {
+  width: 10px;
+  color: #0d0d0d;
 }
