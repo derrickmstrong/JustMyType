@@ -110,8 +110,18 @@ $(function () {
     if (barsIndex === 5) {
       return;
     } else {
+      // Set audio volume
+      audioVolume(0.1);
       $('#typewriter').trigger('play');
       $('#andre3000').trigger('play');
+    }
+
+    // Function Declarations
+    function audioVolume(num) {
+      const typewriterAudio = document.querySelector('#typewriter');
+      const andreAudio = document.querySelector('#andre3000');
+      typewriterAudio.volume = num;
+      andreAudio.volume = num;
     }
 
     // Compare keypress and bars; if same display 🎤 if not display 👎🏾
