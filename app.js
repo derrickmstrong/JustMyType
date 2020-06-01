@@ -10,10 +10,10 @@ $(function () {
 
   let bars = [
     `So I typed a text to a girl I used to see`,
-    `Sayin that I chose this cutie pie with whom I wanna be`,
+    `Sayin' that I chose this cutie pie with whom I wanna be`,
     `And I apologize if this message gets you down`,
-    `Then I CCed every girl that Id see-see round town`,
-    `And hate to see yall frown, but Id rather see her smilin`,
+    `Then I CC'ed every girl that I'd see-see 'round town`,
+    `And hate to see y'all frown, but I'd rather see her smilin`,
   ];
 
   // Special (lower) keyboard styles
