@@ -2,7 +2,7 @@ $(function () {
   let barsIndex = 0;
   let charIndex = 0;
   let move = 35;
-  let wordCount = 56;
+  let wordCount = 55;
   let incorrect = 0;
   let correct = 0;
   let startTime = null;
