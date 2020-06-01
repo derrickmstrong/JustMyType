@@ -116,14 +116,6 @@ $(function () {
       $('#andre3000').trigger('play');
     }
 
-    // Function Declarations
-    function audioVolume(num) {
-      const typewriterAudio = document.querySelector('#typewriter');
-      const andreAudio = document.querySelector('#andre3000');
-      typewriterAudio.volume = num;
-      andreAudio.volume = num;
-    }
-
     // Compare keypress and bars; if same display 🎤 if not display 👎🏾
     if (barsIndex < 5) {
       if (e.key === bars[barsIndex].charAt(charIndex)) {
@@ -274,4 +266,11 @@ $(function () {
       $('#upper-right-speaker').removeClass('speaker');
     }
   });
+  // Function Declarations
+  function audioVolume(num) {
+    const typewriterAudio = document.querySelector('#typewriter');
+    const andreAudio = document.querySelector('#andre3000');
+    typewriterAudio.volume = num;
+    andreAudio.volume = num;
+  }
 });
