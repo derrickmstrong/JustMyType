@@ -3,54 +3,6 @@
   padding: 0;
 }
 
-#prompt-container {
-  font-family: Courier New, Courier, monospace;
-  font-size: 24px;
-  letter-spacing: 3px;
-}
-
-#position-block {
-  position: absolute;
-  margin-top: 4px;
-  width: 15px;
-  height: 25px;
-  background-color: rgba(67, 241, 44, 0.932);
-}
-
-.keyboard-container {
-  margin-top: 200px;
-}
-
-#target-letter {
-  font-size: 38px;
-  background-image: url(./images/monitor.png);
-  background-repeat: no-repeat;
-  height: 125px;
-  background-position-x: center;
-  margin: 0.5em 0;
-  padding: 20px 0;
-  color: white;
-}
-
-.keys-row {
-  margin-top: 40px;
-  padding: 10px 0;
-}
-
-#feedback {
-  font-size: 20px;
-  cursor: ;
-}
-.glyphicon-ok {
-  content: '\e013';
-  color: #1da237;
-}
-
-.glyphicon-remove {
-  content: '\e014';
-  color: #cd2626;
-}
-
 body::after {
   content: '';
   background-image: url(./images/bg_mic.svg);
@@ -64,18 +16,75 @@ body::after {
   z-index: -1;
 }
 
+#bars {
+  color: white;
+}
+
+#feedback {
+  font-size: 20px;
+}
+
 #keyboard-upper-container {
   display: none;
 }
 
-#bars {
+#position-block {
+  position: absolute;
+  margin-top: 4px;
+  width: 15px;
+  height: 25px;
+  background-color: rgba(67, 241, 44, 0.932);
+}
+
+#prompt-container {
+  font-family: Courier New, Courier, monospace;
+  font-size: 24px;
+  letter-spacing: 3px;
+}
+
+#target-letter {
+  font-size: 38px;
+  background-image: url(./images/monitor.png);
+  background-repeat: no-repeat;
+  height: 125px;
+  background-position-x: center;
+  margin: 0.5em 0;
+  padding: 20px 0;
   color: white;
 }
+
+/* .glyphicon-ok {
+  content: '\e013';
+  color: #1da237;
+}
+
+.glyphicon-remove {
+  content: '\e014';
+  color: #cd2626;
+} */
 
 .highlight-key {
   background-color: rgba(30, 30, 139, 0.85);
   text-decoration: underline;
   color: white;
+}
+
+.key {
+  border: 1px solid black;
+}
+
+.keyboard-container {
+  margin-top: 200px;
+}
+
+.keys-row {
+  margin-top: 40px;
+  padding: 10px 0;
+}
+
+.spacer {
+  width: 10px;
+  color: #0d0d0d;
 }
 
 .speaker {
@@ -85,13 +94,4 @@ body::after {
 .try-again {
   color: white;
   background-color: rgba(67, 241, 44, 0.932);
-}
-
-.key {
-  border: 1px solid black;
-}
-
-.spacer {
-  width: 10px;
-  color: #0d0d0d;
 }
