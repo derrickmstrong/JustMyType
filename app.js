@@ -85,6 +85,8 @@ $(function () {
   $('#start-test').css({
     position: 'relative',
     top: '-30em',
+    backgroundColor: 'rgba(30, 30, 139, 0.97)',
+    color: 'white',
     zIndex: '10',
   });
 
