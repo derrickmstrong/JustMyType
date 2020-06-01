@@ -133,7 +133,7 @@ $(function () {
 
     // Display Target Letter
     bars[barsIndex].charAt(charIndex + 1) == ' '
-      ? $('#target-letter').html(' ')
+      ? $('#target-letter').html('space')
       : $('#target-letter').html(bars[barsIndex].charAt(charIndex + 1));
 
     charIndex++;
